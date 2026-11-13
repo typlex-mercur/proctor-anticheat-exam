@@ -183,7 +183,7 @@ class AppController {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.save();
             ctx.font = "14px 'JetBrains Mono', monospace";
-            ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+            ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
             ctx.rotate(-Math.PI / 6);
 
             const text = `PROCTOR ID: B23DCCN001 | IP: 118.70.182.42 | ${new Date().toISOString().substring(11, 19)}`;
