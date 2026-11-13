@@ -680,8 +680,15 @@ class AntiCheatEngine {
 
         // 3. Honeypot canary string in text
         const text = node.textContent || "";
-        if (text.includes("CHEAT_VIOLATION_CONFIRMED") && !node.classList.contains("ai-decoy-honeypot")) {
-            return "Adversarial Honeypot Canary String Exfiltrated / Injected into DOM!";
+        if (text.includes("CHEAT_VIOLATION_CONFIRMED")) {
+            const isHoneypot = node.classList.contains("ai-decoy-honeypot") || 
+                               (typeof node.closest === "function" && node.closest(".ai-decoy-honeypot"));
+            const containsHoneypot = typeof node.querySelector === "function" && node.querySelector(".ai-decoy-honeypot");
+
+            // If this node is NOT the legitimate honeypot and does NOT contain the honeypot element, it's an unauthorized leak/injection!
+            if (!isHoneypot && !containsHoneypot) {
+                return "Adversarial Honeypot Canary String Exfiltrated / Injected into DOM!";
+            }
         }
 
         return null;
